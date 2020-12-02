@@ -28,3 +28,9 @@ passwords = read_input()
 valid = filter(lambda passwd: passwd.lower <= passwd.text.count(passwd.letter) <= passwd.upper, passwords)
 print(f'\t Solution found: {len(list(valid))}')
 
+
+# Part 2
+print('Part 2:')
+passwords = read_input()
+valid = filter(lambda passwd: (passwd.text[passwd.lower-1] == passwd.letter) ^ (passwd.text[passwd.upper-1] == passwd.letter), passwords)
+print(f'\t Solution found: {len(list(valid))}')
