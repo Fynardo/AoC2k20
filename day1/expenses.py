@@ -12,22 +12,23 @@ wanted = 2020
 
 
 # Part 1
+print('Part 1:')
 for i, x in enumerate(lines):
     for j in range(i, len(lines)):
         y = lines[j]
         if x + y == wanted:
-            print(x*y)
+            print(f'\t solution found: {x*y}')
 
 
 # Part 2
-cache = {}
+print('Part 2:')
 for i, x in enumerate(lines):
     for j in range(i, len(lines)):
         y = lines[j]
         diff = wanted - x - y
         try:
-            last = lines[lines.index(diff)]
-            print(x*y*last)
+            z = lines[lines.index(diff)]
+            print(f'\t solution found: {x*y*z}')
         except ValueError:
             continue
 
