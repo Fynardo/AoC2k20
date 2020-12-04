@@ -65,7 +65,7 @@ class HGT(Field):
 class HCL(Field):
     def validate(self):
         hashtag, color = self.value[0], self.value[1:]
-        return hashtag == '#' and re.compile('^[a-z0-9]{6}$').match(color)
+        return hashtag == '#' and re.compile('^[a-f0-9]{6}$').match(color)
 
 class ECL(Field):
     def validate(self):
