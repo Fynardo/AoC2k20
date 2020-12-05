@@ -13,7 +13,7 @@ passes = read_input()
 def _aux(boarding_pass, a, b, l, u):
     letter = boarding_pass[0]
     if (b - a == 2):
-        return (a if letter == l else b - 1)
+        return int(a if letter == l else b - 1)
     else:
         if letter == l:
             b = (a + b) / 2
@@ -33,3 +33,9 @@ def decode(boarding_pass):
 print('Part 1')
 seat_ids = [decode(boarding_pass) for boarding_pass in passes] 
 print(f'\tSolution Found: {max(seat_ids)}')
+
+# Part 2
+print('Part 2')
+sorted_seats = sorted(seat_ids)
+my_seat = [y-1 for x,y in list(zip(sorted_seats[:-1],sorted_seats[1:])) if y - x > 1][0]
+print(f'\tSolution Found: {my_seat}')
