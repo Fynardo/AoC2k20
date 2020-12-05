@@ -13,12 +13,12 @@ passes = read_input()
 def _aux(boarding_pass, a, b, l, u):
     letter = boarding_pass[0]
     if (b - a == 2):
-        return int(a if letter == l else b - 1)
+        return (a if letter == l else b - 1)
     else:
         if letter == l:
-            b = (a + b) / 2
+            b = (a + b) // 2
         elif letter == u:
-            a = (a + b) / 2
+            a = (a + b) // 2
         return _aux(boarding_pass[1:], a, b, l, u)
 
 def decode_row(boarding_pass):
