@@ -15,4 +15,9 @@ print('Part 1')
 answers = [len(set(g.replace('\n',''))) for g in groups]
 print(f'\tSolution Found: {sum(answers)}')
 
-    
+
+# Part 2
+print('Part 2')
+answers = [[set(passenger) for passenger in g.split('\n')] for g in groups]
+common_answers = [len(a[0].intersection(*a[1:])) for a in answers]
+print(f'\tSolution Found: {sum(common_answers)}')
