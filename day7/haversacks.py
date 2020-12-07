@@ -9,7 +9,8 @@ def read_input():
         return f.read().splitlines()
 
 
-def lines_to_graph():
+# Part 1
+def lines_to_inverse_graph():
     bag_graph = {}
     lines = read_input()
     for line in lines:
@@ -25,11 +26,8 @@ def lines_to_graph():
     return bag_graph
 
 
-
-# Part 1
-print('Part 1')
-bag_graph = lines_to_graph()
-def search(graph, bag):
+bag_graph = lines_to_inverse_graph()
+def search_colors(graph, bag):
     explored = []
     frontier = [(bag, None)]
     while frontier:
@@ -38,6 +36,33 @@ def search(graph, bag):
         frontier += graph[bag]
     return len(set(explored))-1
 
-explored_bags = search(bag_graph, 'shiny gold')
+print('Part 1')
+explored_bags = search_colors(bag_graph, 'shiny gold')
 print(f'\tSolution Found: {explored_bags}')
+
+
+# Part 2
+def lines_to_direct_graph():
+    bag_graph = {}
+    lines = read_input()
+    for line in lines:
+        outer_bag = re.findall('^\w+ \w+', line)[0]
+        inner_bags = re.findall('(\d+) (\w+ \w+)', line)
+        bag_graph[outer_bag] = inner_bags
+    return bag_graph
+
+bag_graph = lines_to_direct_graph()
+def search_needed_bags(graph, bag):
+    if not graph[bag]:  
+        return 0
+    return sum([int(x[0]) + int(x[0]) * search_needed_bags(graph, x[1]) for x in graph[bag]])
+
+print('Part 2')
+needed_bags = search_needed_bags(bag_graph, 'shiny gold')
+print(f'\tSolution Found: {needed_bags}')
+    
+
+
+
+
 
