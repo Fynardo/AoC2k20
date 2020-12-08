@@ -43,3 +43,32 @@ while True:
     handheld.exec(next_instruction[0], (int(next_instruction[1])))
 
 print(f'\tSolution Found {handheld.acc_register}')
+
+
+# Part 2
+def run_program():
+    infinite_loop = False
+    checker = [False] * len(instructions)
+    handheld = Handheld()
+    while handheld.pc_register < len(instructions):
+        if checker[handheld.pc_register]:
+            infinite_loop = True
+            break
+        checker[handheld.pc_register] = True
+        next_instruction = instructions[handheld.pc_register]
+        handheld.exec(next_instruction[0], (int(next_instruction[1])))
+    if infinite_loop:
+        return False, -1
+    return True, handheld.acc_register
+
+
+print('Part 2')
+for i, (op, arg) in enumerate(instructions):
+    if op == 'jmp':
+        instructions[i][0] = 'nop'
+        success, acc = run_program()
+        if success:
+            print(f'\tSolution Found {acc}')
+            break
+        else: # Revert change
+            instructions[i][0] = 'jmp'
