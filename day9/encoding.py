@@ -28,3 +28,24 @@ while next_number in flatten_hash:
     offset += 1
     next_number = xmas[offset+preamble_length]
 print(f'\tSolution Found: {next_number}')
+
+
+# Part 2
+invalid_number = next_number
+
+print('Part 2')
+contiguous = set()
+j = 0
+for x in xmas:
+    contiguous.add(x)
+    while sum(contiguous) < invalid_number:
+        j += 1
+        contiguous.add(xmas[j])
+    if sum(contiguous) == invalid_number:
+        print(f'\tSolution Found: {max(contiguous) + min(contiguous)}')
+        break
+    else:
+        contiguous.remove(x)
+
+
+
