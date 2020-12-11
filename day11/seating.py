@@ -18,7 +18,6 @@ flat_seats = ''.join(seats)
 def get_surroundings(seats, i):
     retval = []
     # clockwise
-    retval.append(seats[i-cols-1] if (i % cols > 0 and i // cols > 0) else '.')
     retval.append(seats[i-cols] if i//cols > 0 else '.')
     retval.append(seats[i-cols+1] if (i % cols < cols - 1 and i // cols > 0) else '.')
     retval.append(seats[i+1] if i % cols < cols -1 else '.')
@@ -26,6 +25,7 @@ def get_surroundings(seats, i):
     retval.append(seats[i+cols] if i//cols < rows - 1 else '.')
     retval.append(seats[i+cols-1] if (i % cols > 0 and i // cols < rows - 1) else '.')
     retval.append(seats[i-1] if i % cols > 0 else '.')
+    retval.append(seats[i-cols-1] if (i % cols > 0 and i // cols > 0) else '.')
     return retval
 
 
@@ -59,5 +59,3 @@ while new_seats != cur_seats:
     new_seats = simulate(cur_seats)
 
 print(f'\tSolution Found: {new_seats.count("#")}')
-
-
