@@ -32,3 +32,35 @@ for op in program:
         memory[p.group(1)] = apply_mask(mask, p.group(2))
 
 print(f'\tSolution Found: {sum(list(memory.values()))}')
+
+
+# Part 2
+def land_floating_mask(v):
+    if v.count('X') == 0:
+        return v
+    else:      
+        return land_floating_mask(v.replace('X','0',1)) +' ' + land_floating_mask(v.replace('X','1',1))
+
+def apply_floating_mask(mask, value):
+    bin_value = bin(int(value))[2:]
+    expanded_bin = ''.join(['0'] * (36 - len(bin_value))) + bin_value
+    new_value = ''
+    for i, m in enumerate(mask):
+        new_value += m if (m == '1' or m == 'X') else expanded_bin[i]
+    concrete_locations = land_floating_mask(new_value).split()
+    return [int(c, 2) for c in concrete_locations]
+
+
+print('Part 2')
+mask = None
+memory = {}
+for op in program:
+    if op.startswith('mask'):
+        mask = op.split(' = ')[1]
+    elif op.startswith('mem'):
+        p = re.match('^mem\[(\d+)\] = (\d+)$', op)        
+        memory_list = apply_floating_mask(mask, p.group(1))
+        for mem_dir in memory_list:
+            memory[mem_dir] = int(p.group(2))
+
+print(f'\tSolution Found: {sum(list(memory.values()))}')
