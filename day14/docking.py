@@ -15,10 +15,8 @@ program = read_input()
 def apply_mask(mask, value):
     bin_value = bin(int(value))[2:]
     expanded_bin = ''.join(['0'] * (36 - len(bin_value))) + bin_value
-    new_value = ''
-    for i, m in enumerate(mask):
-        new_value += m if (m == '0' or m == '1') else expanded_bin[i]
-    return int('0b'+new_value, 2)
+    modified_value = ''.join([m if (m == '0' or m == '1') else expanded_bin[i] for i, m in enumerate(mask)])
+    return int('0b'+modified_value, 2)
 
 
 print('Part 1')
@@ -39,15 +37,13 @@ def land_floating_mask(v):
     if v.count('X') == 0:
         return v
     else:      
-        return land_floating_mask(v.replace('X','0',1)) +' ' + land_floating_mask(v.replace('X','1',1))
+        return land_floating_mask(v.replace('X', '0', 1)) + ' ' + land_floating_mask(v.replace('X' ,'1', 1))
 
 def apply_floating_mask(mask, value):
     bin_value = bin(int(value))[2:]
     expanded_bin = ''.join(['0'] * (36 - len(bin_value))) + bin_value
-    new_value = ''
-    for i, m in enumerate(mask):
-        new_value += m if (m == '1' or m == 'X') else expanded_bin[i]
-    concrete_locations = land_floating_mask(new_value).split()
+    modified_value = ''.join([m if (m == '1' or m == 'X') else expanded_bin[i] for i, m in enumerate(mask)])
+    concrete_locations = land_floating_mask(modified_value).split()
     return [int(c, 2) for c in concrete_locations]
 
 
