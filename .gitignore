@@ -1,3 +1,9 @@
+# IDE things
+*.swp
+
+# Tests and stuff
+*/test_input
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
