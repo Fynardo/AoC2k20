@@ -27,5 +27,29 @@ invalid_fields = filter(lambda x: x not in merged_rules, merged_tickets)
 print(f'\tSolution Found: {sum(invalid_fields)}')
 
 
+# Part 2
+valid_tickets = list(filter(lambda t: all([f in merged_rules for f in t]), nearby_tickets))
+remaining_keys = set(rules.keys())
+remaining_rules = rules
 
-                           
+print('Part 2')
+result = 1
+solved = set()
+while remaining_keys:
+    for i in range(len(my_ticket)):
+        if i in solved:
+            continue
+        viable_keys = remaining_keys
+        for ticket in valid_tickets:
+            viable_keys = set.intersection(viable_keys, {k for k,v in remaining_rules.items() if ticket[i] in v})
+            if len(viable_keys) == 1:
+                rule = viable_keys.pop()
+                if 'departure' in rule:
+                    result *= my_ticket[i]
+                remaining_keys.remove(rule)
+                del remaining_rules[rule]
+                solved.add(i)
+                break
+
+print(f'\tSolution Found: {result}')
+
